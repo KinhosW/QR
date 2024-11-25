@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Solar Interactivo</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #solarSystem {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+        }
+
+        #sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            background-color: yellow;
+            border-radius: 50%;
+            margin-top: -60px;
+            margin-left: -60px;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            animation: pulsate 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 255, 0, 1);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            }
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* Colores de los planetas */
+        #mercury { background-color: gray; }
+        #venus { background-color: orange; }
+        #earth { background-color: blue; }
+        #mars { background-color: red; }
+        #jupiter { background-color: brown; }
+        #saturn { background-color: gold; }
+        #uranus { background-color: lightblue; }
+        #neptune { background-color: darkblue; }
+        
+        /* Agregar sombras de los planetas */
+        #mercury, #venus, #earth, #mars, #jupiter, #saturn, #uranus, #neptune {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div id="solarSystem">
+        <div id="sun"></div>
+
+        <!-- Órbitas -->
+        <div class="orbit" style="width: 200px; height: 200px; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px;"></div>
+        <div class="orbit" style="width: 300px; height: 300px; top: 50%; left: 50%; margin-top: -150px; margin-left: -150px;"></div>
+        <div class="orbit" style="width: 400px; height: 400px; top: 50%; left: 50%; margin-top: -200px; margin-left: -200px;"></div>
+        <div class="orbit" style="width: 500px; height: 500px; top: 50%; left: 50%; margin-top: -250px; margin-left: -250px;"></div>
+        <div class="orbit" style="width: 600px; height: 600px; top: 50%; left: 50%; margin-top: -300px; margin-left: -300px;"></div>
+        <div class="orbit" style="width: 700px; height: 700px; top: 50%; left: 50%; margin-top: -350px; margin-left: -350px;"></div>
+        <div class="orbit" style="width: 800px; height: 800px; top: 50%; left: 50%; margin-top: -400px; margin-left: -400px;"></div>
+        <div class="orbit" style="width: 900px; height: 900px; top: 50%; left: 50%; margin-top: -450px; margin-left: -450px;"></div>
+
+        <!-- Planetas -->
+        <div id="mercury" class="planet" style="width: 20px; height: 20px; top: 50%; left: 50%; margin-top: -10px; margin-left: -10px;"></div>
+        <div id="venus" class="planet" style="width: 40px; height: 40px; top: 50%; left: 50%; margin-top: -20px; margin-left: -20px;"></div>
+        <div id="earth" class="planet" style="width: 50px; height: 50px; top: 50%; left: 50%; margin-top: -25px; margin-left: -25px;"></div>
+        <div id="mars" class="planet" style="width: 30px; height: 30px; top: 50%; left: 50%; margin-top: -15px; margin-left: -15px;"></div>
+        <div id="jupiter" class="planet" style="width: 80px; height: 80px; top: 50%; left: 50%; margin-top: -40px; margin-left: -40px;"></div>
+        <div id="saturn" class="planet" style="width: 70px; height: 70px; top: 50%; left: 50%; margin-top: -35px; margin-left: -35px;"></div>
+        <div id="uranus" class="planet" style="width: 60px; height: 60px; top: 50%; left: 50%; margin-top: -30px; margin-left: -30px;"></div>
+        <div id="neptune" class="planet" style="width: 55px; height: 55px; top: 50%; left: 50%; margin-top: -27.5px; margin-left: -27.5px;"></div>
+    </div>
+
+    <script>
+        const planets = {
+            mercury: { speed: 0.024, distance: 100 },
+            venus: { speed: 0.018, distance: 150 },
+            earth: { speed: 0.01, distance: 200 },
+            mars: { speed: 0.008, distance: 250 },
+            jupiter: { speed: 0.004, distance: 300 },
+            saturn: { speed: 0.003, distance: 350 },
+            uranus: { speed: 0.002, distance: 400 },
+            neptune: { speed: 0.001, distance: 450 }
+        };
+
+        const planetElements = {
+            mercury: document.getElementById('mercury'),
+            venus: document.getElementById('venus'),
+            earth: document.getElementById('earth'),
+            mars: document.getElementById('mars'),
+            jupiter: document.getElementById('jupiter'),
+            saturn: document.getElementById('saturn'),
+            uranus: document.getElementById('uranus'),
+            neptune: document.getElementById('neptune')
+        };
+
+        const animatePlanets = () => {
+            const now = Date.now();
+            Object.keys(planets).forEach(planet => {
+                const planetData = planets[planet];
+                const angle = (now * planetData.speed) % 360;
+                const radians = angle * (Math.PI / 180);
+                const x = planetData.distance * Math.cos(radians);
+                const y = planetData.distance * Math.sin(radians);
+                planetElements[planet].style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            requestAnimationFrame(animatePlanets);
+        };
+
+        animatePlanets();
+
+        // Función de interactividad
+        Object.keys(planetElements).forEach(planet => {
+            planetElements[planet].addEventListener('click', () => {
+                alert(`¡Has hecho clic en ${planet.charAt(0).toUpperCase() + planet.slice(1)}!`);
+            });
+        });
+    </script>
+</body>
+</html>
